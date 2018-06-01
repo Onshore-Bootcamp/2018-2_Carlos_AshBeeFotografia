@@ -1,0 +1,62 @@
+﻿@using AshBeeFotografia.Models
+@model IEnumerable<AshBeeFotografia.Models.PhotosPO>
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .picture-container {
+        padding-bottom: 25px;
+        position: relative;
+        background-color: ghostwhite;
+    }
+
+    .admin-link1 {
+        position: absolute;
+        top: 100%;
+        left: 100%;
+        transform: translate(-120%, -100%);
+    }
+
+    .admin-link2 {
+        position: absolute;
+        top: 100%;
+        left: 15%;
+        transform: translate(-50%,-100%);
+    }
+
+    .black-links {
+        color: black;
+    }
+</style>
+
+<h2 class="page-header" align="center">Fotos</h2>
+
+<div class="container" align="center">
+    <div class="body">
+        <div class="row">
+            @*Building a table dynamically adding each photo in Model to table.*@
+            @foreach (var item in Model)
+            {
+                <div class="col" style="display:inline-block">
+                    <div class="table table-striped">
+                        <div class="picture-container">
+                            <a href="@Url.Content(item.PhotoLocation)">
+                                <img src="@Url.Content(item.PhotoLocation)" alt=" @item.PhotoName" class="thumbnail" width="200" />
+                            </a>
+                            @*Checking RoleId through session, if true build links to edit and delete.*@
+                            @if (Session["RoleId"] != null && (long)Session["RoleId"] <= 2)
+                            {
+                                <div class="admin-link1">
+                                    @Html.ActionLink("Delete", "Delete", "Photos", new { photoId = item.PhotoId }, new { Class = "glyphicon glyphicon-trash black-links", onclick = "return confirm('Are you sure you want to delete?')" })
+                                </div>
+                                <div class="admin-link2">
+                                    @Html.ActionLink("Edit", "Update", "Photos", new { photoId = item.PhotoId }, new { Class = "glyphicon glyphicon-pencil black-links" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@using AshBeeFotografia.Models
+@model AshBeeFotografia.Models.AlbumPO
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    body {
+        background-image: url("/../Images/banner3.jpg");
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center top;
+    }
+
+    .form-control {
+        background-color: rgba(0, 0, 0, 0.47);
+        border-color: rgba(248, 248, 255, 0.69);
+        box-shadow: inset;
+        color: ghostwhite;
+        height: auto;
+        font-family: 'Tahoma';
+        font-size: small;
+    }
+
+    .btn {
+        background-color: rgba(0, 0, 0, 0.40);
+        color: ghostwhite;
+    }
+
+    .label {
+        color: rgba(248, 248, 255, 0.70);
+        font-size: medium;
+        font-family: 'Tahoma';
+    }
+
+    #header {
+        font-family: 'AR BERKLEY';
+        color: ghostwhite;
+    }
+</style>
+<h2 id="header" align="center">Create Album</h2>
+@if (TempData["Error"] != null)
+{
+    <h5>@TempData["Error"].ToString()</h5>
+}
+<body>
+    @using (Html.BeginForm("Create", "Album", FormMethod.Post))
+    {
+        <div class="form-group form-control" align="center">
+            <div>
+                @if (ViewBag.DropDown != null)
+                {
+                    <br />
+                    <label for="User">User:</label>
+                    <br />
+                    @Html.DropDownListFor(Model => Model.UserId, (List<SelectListItem>)ViewBag.DropDown, "Please select user.", new { Class = "form-control btn" })
+                }
+                <br />
+                <br />
+                <label for="AlbumName">Album Name:</label>
+                
+                @Html.TextBoxFor(Model => Model.AlbumName, new { @class = "form-control", placeholder = "Album Name" })
+                <br />
+                @Html.ValidationMessageFor(Model => Model.AlbumName, " ", new { @class = "text-danger" })
+                <label for="AlbumDescription">Description</label>
+                @Html.TextBoxFor(Model => Model.AlbumDescription, new { @class = "form-control ", placeholder = "Description" })
+                <br />
+                @Html.ValidationMessageFor(Model => Model.AlbumDescription, " ", new { @class = "text-danger" })
+                
+            </div>
+            <input type="submit" value="Create" />
+        </div>
+    }
+</body>

@@ -1,0 +1,69 @@
+﻿@using AshBeeFotografia.Models
+@model AshBeeFotografia.Models.PhotosPO
+@{
+    ViewBag.Title = "Update";
+}
+
+<style>
+    .body {
+        background-image: url();
+    }
+
+    .form-control {
+        font-family: 'Tahoma';
+        background-color: black;
+        color: ghostwhite;
+        height: auto;
+    }
+
+    label {
+        font-family: 'Tahoma';
+        font-size: medium;
+        color: ghostwhite;
+    }
+
+</style>
+
+@using (Html.BeginForm("Update", "Photos", FormMethod.Post))
+{
+    @*Hiding PhotoId and Location*@
+    @Html.HiddenFor(model => model.PhotoId)
+    @Html.HiddenFor(model => model.PhotoLocation)
+    <h2 class="page-header" align="center">Update Photo</h2>
+
+    <div class="table">
+        <div class="col-lg-6">
+            <div class="row" align="center">
+                <div class="form-group form-control" style="width:auto;height:auto">
+                    @*Displayes a thumbnail of a selected image.*@
+                    <a target="_blank" href="@Url.Content(Model.PhotoLocation)">
+                        <img src="@Url.Content(Model.PhotoLocation)" alt=" @Model.PhotoName" class="thumbnail" width="275" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">
+                @*Checks to make sure there is a list in the Viewbag, if true then
+                  create a dropdown menu of Albums with a value of their Id*@
+                @if (ViewBag.DropDown != null)
+                {
+                    <label for="Album">Album:</label>
+                    @Html.DropDownListFor(Model => Model.AlbumId, (List<SelectListItem>)ViewBag.DropDown, "Please select album.", new { Class = "form-control " })
+                }
+                @*Gets user input and displays model validation*@
+                <label for="PhotoName">Photo Name:</label>
+                @Html.TextBoxFor(Model => Model.PhotoName, new { @class = "form-control", placeholder = Model.PhotoName })
+                @Html.ValidationMessageFor(Model => Model.PhotoName)
+                <label for="PhotoDescription">Photo Description:</label>
+                @Html.TextBoxFor(Model => Model.Description, new { @class = "form-control", placeholder = Model.Description })
+                @Html.ValidationMessageFor(Model => Model.Description)
+                <label for="PhotoDate">Date:</label>
+                @Html.TextBoxFor(Model => Model.PhotoDate, new { @class = "form-control", placeholder = Model.PhotoDate.ToShortDateString() })
+                @Html.ValidationMessageFor(Model => Model.PhotoDate)
+                <br />
+                <input type="submit" value="Update" class="form-control" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,76 @@
+﻿@using AshBeeFotografia.Models
+@model AshBeeFotografia.Models.UserPO
+@{
+    ViewBag.Title = "Modify";
+}
+<style>
+    .form-control {
+        background-color: rgba(0, 0, 0, 0.60);
+        color: ghostwhite;
+        height: auto;
+    }
+
+    .label {
+        color: ghostwhite;
+        font-size: medium;
+    }
+
+    .button {
+        font-family: 'Tahoma';
+        background-color: rgba(0, 0, 0, 0.60);
+        color: ghostwhite;
+    }
+
+    body {
+        background-image: url("/../Images/banner2.jpg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        font-family: 'Tahoma';
+    }
+
+    .page-header {
+        color: black;
+    }
+</style>
+
+<h2 class="page-header" align="center"> Modify User</h2>
+
+
+@using (Html.BeginForm("Modify", "Account", FormMethod.Post))
+{
+    <body>
+        @Html.HiddenFor(model => Model.UserId)
+        @Html.HiddenFor(model => model.Password)
+
+        <div class="form-group form-control" align="center">
+            <label for="FirstName" class="label">First Name:</label>
+            @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control", placeholder = Model.FirstName })
+            @Html.ValidationMessageFor(Model => Model.FirstName)
+            <label for="LastName" class="label">Last Name:</label>
+            @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control", placeholder = Model.LastName })
+            @Html.ValidationMessageFor(Model => Model.LastName)
+            <label for="Username" class="label">Username:</label>
+            @Html.TextBoxFor(Model => Model.Username, new { @class = "form-control", placeholder = Model.Username })
+            @Html.ValidationMessageFor(Model => Model.Username)
+            <label for="Phone" class="label">Phone Number:</label>
+            @Html.TextBoxFor(Model => Model.Phone, new { @class = "form-control", placeholder = Model.Phone })
+            @Html.ValidationMessageFor(Model => Model.Phone)
+            <label for="Email" class="label">Email:</label>
+            @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control", placeholder = Model.Email })
+            @Html.ValidationMessageFor(Model => Model.Email)
+
+            <label for="Role" class="label">Role:</label>
+            <div id="role-list">
+                @Html.DropDownListFor(Model => Model.RoleId, new List<SelectListItem> {
+new SelectListItem { Value = "1" , Text = " Admin "},
+new SelectListItem { Value = "2" , Text = " Mod " },
+new SelectListItem { Value = "3" , Text = " User " },
+},
+                new { @class = "form-control" })
+            </div>
+            <input type="submit" value="Update" class="button" />
+        </div>
+    </body>
+}
+

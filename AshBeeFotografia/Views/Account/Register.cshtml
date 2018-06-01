@@ -1,0 +1,64 @@
+﻿@using AshBeeFotografia.Models
+@model AshBeeFotografia.Models.UserPO
+@{
+    ViewBag.Title = "Register";
+}
+<style>
+    .form-control {
+        background-color: rgba(0, 0, 0, 0.60);
+        color: ghostwhite;
+        height: auto;
+    }
+
+    .label {
+        color: ghostwhite;
+        font-size: medium;
+    }
+
+    body {
+        background-image: url("/../Images/banner1.jpg");
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center;
+        font-family: 'Tahoma';
+    }
+
+    input {
+        background-color: rgba(0, 0, 0, 0.70);
+        color: ghostwhite;
+    }
+</style>
+
+<h2 align="center" class="page-header">Register</h2>
+<body>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <div class="form-group form-control" align="center">
+            <label for="FirstName" class="label">First Name:</label>
+            @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+            @Html.ValidationMessageFor(Model => Model.FirstName, null, new { @class = "text-danger" })
+            <br />
+            <label for="LastName" class="label">Last Name:</label>
+            @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            @Html.ValidationMessageFor(Model => Model.LastName, null, new { @class = "text-danger" })
+            <br />
+            <label for="Username" class="label">Username:</label>
+            @Html.TextBoxFor(Model => Model.Username, new { @class = "form-control", placeholder = "Username" })
+            @Html.ValidationMessageFor(Model => Model.Username, null, new { @class = "text-danger" })
+            <br />
+            <label for="Password" class="label">Password:</label>
+            @Html.PasswordFor(Model => Model.Password, new { @class = "form-control", placeholder = "Password" })
+            @Html.ValidationMessageFor(Model => Model.Password, null, new { @class = "text-danger" })
+            <br />
+            <label for="Phone" class="label">Phone:</label>
+            @Html.TextBoxFor(Model => Model.Phone, new { @class = "form-control", placeholder = "Phone Number" })
+            @Html.ValidationMessageFor(Model => Model.Phone, null, new { @class = "text-danger" })
+            <br />
+            <label for="Email" class="label">Email:</label>
+            @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control", placeholder = "Email" })
+            @Html.ValidationMessageFor(Model => Model.Email, null, new { @class = "text-danger" })
+            <br />
+            <input type="submit" value="Register" class="form-control" />
+        </div>
+    }
+</body>

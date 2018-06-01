@@ -1,0 +1,112 @@
+﻿@using AshBeeFotografia.Models
+@using BusinessLayer.Models;
+@model IEnumerable<AshBeeFotografia.Models.AlbumPO>
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .albumContainer {
+        padding-top: 15px;
+        position: relative;
+    }
+
+    img {
+        display: block;
+        margin: auto;
+    }
+
+    .albumCeneteredText {
+        color: black;
+        font-family: 'AR BERKLEY';
+        font-size: x-large;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .albumLinkBottom {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #album-padding {
+        padding-right: 35px;
+    }
+
+    a {
+        color: ghostwhite;
+        font-family: 'AR BERKLEY';
+    }
+
+    #photo-counter {
+        position: absolute;
+        top: 100%;
+        left: 100%;
+        transform: translate(75%,+10%);
+        color: black;
+        /*font-size:large;*/
+    }
+</style>
+
+@if ((long)Session["RoleId"] == 1)
+{
+    <br />
+    <h5> @Html.ActionLink("Add", "Create", "Album", null, new { Class = "glyphicon glyphicon-plus-sign" })</h5>
+
+}
+else
+{
+    <h2 align="center" style="font-family:'AR BERKLEY'"> Albums for @Session["Username"]</h2>
+}
+
+<div class="container" align="center">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="" style="display:inline-grid">
+                <div class="albumContainer">
+                    <a href="@Url.Action("Index","Photos",new { albumId = item.AlbumId },null)">
+                        <img src="~/Images/pictures-folder.jpg" alt="@item.AlbumName" height="125" width="250">
+                        <div class="albumCeneteredText">
+                            <p>@item.AlbumName</p>
+                            <div>
+                                @if (ViewBag.PhotoCount != null)
+                                {
+                                    foreach (PhotosBO album in ViewBag.PhotoCount)
+                                    {
+                                        if (album.AlbumId == item.AlbumId)
+                                        {
+                                            <div id="photo-counter" class="glyphicon glyphicon-picture">
+                                                <div style="transform: translate(-150%,-100%);">@album.PhotoCount</div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </a>
+                    <div class="albumLinkBottom">
+
+
+                        @if ((long)item.AlbumId != 1 && (long)item.AlbumId != 4 && (long)Session["RoleId"] <=2)
+                        {
+                            <h6>
+                                @if ((long)Session["RoleId"] == 1)
+                                {
+                                    @Html.ActionLink("Delete", "Delete", "Album", new { albumId = item.AlbumId }, new { Class = "glyphicon glyphicon-trash", id = "links", onclick = "return confirm('Are you sure you want to delete?')" })
+                                }
+                                <span id="album-padding"></span>
+                                @Html.ActionLink("Edit", "Update", "Album", new { albumId = item.AlbumId }, new { Class = "glyphicon glyphicon-pencil", id = "links" })
+                            </h6>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

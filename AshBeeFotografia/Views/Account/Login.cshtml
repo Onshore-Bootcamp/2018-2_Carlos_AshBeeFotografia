@@ -1,0 +1,69 @@
+﻿@using AshBeeFotografia.Models
+@model AshBeeFotografia.Models.LoginPO
+@{
+    /**/
+
+    ViewBag.Title = "Login";
+}
+<style>
+    .form-control {
+        background-color: rgba(0, 0, 0, 0.80);
+        height: auto;
+    }
+
+    .label {
+        color: ghostwhite;
+        font-size: medium;
+    }
+
+    body {
+        background-image: url("/../Images/login.jpg");
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center top;
+        font-family: 'Glyphicons Halflings';
+    }
+
+    input {
+        background-color: rgba(0, 0, 0, 0.80);
+        padding-top: unset;
+        color: ghostwhite;
+    }
+</style>
+<h2 class="page-header" align="center">Login</h2>
+<body>
+    @if (Session["UserId"] == null)
+    {
+        using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="form-group form-control" align="center">
+                <label for="Username" class="label">Username:</label>
+                @Html.TextBoxFor(Model => Model.Username, new { @class = "form-control", placeholder = "Username" })
+                @Html.ValidationMessageFor(Model => Model.Username, "", new { @class = "text-danger" })
+                <br />
+                <label for="Password" class="label">Password:</label>
+                @Html.PasswordFor(Model => Model.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(Model => Model.Password, "", new { @class = "text-danger" })
+                <br />
+                <input type="submit" value="Login">
+                <br />
+                <div> </div>
+
+                @if (TempData["Error"] != null)
+                {
+
+                    <div class="alert-danger">
+                        <p>@TempData["Error"]</p>
+                    </div>
+                }
+            </div>
+        }
+
+    }
+    else
+    {
+        <div class="form-control">
+            <div class="text-danger text-center text-warning" style="font-size:x-large">You are already logged in.</div>
+        </div>
+    }
+</body>

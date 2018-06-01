@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - AshBee Fotographia</title>
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top film-strip">
+        <div class="container header-links">
+            <div class="navbar-header header-links">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="padding-left:-15px; padding-right:60px; font-family:'AR BERKLEY';">@Html.ActionLink("AshBee Fotografia", "Index", "Home", new { area = " " }, new { @class = "navbar-brand glyphicon-camera" })</div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Portfolio", "Portfolio", "Home", null, new { Class = "glyphicon glyphicon-film" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { Class = "glyphicon glyphicon-user" })</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserId"] == null)
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "Account", null, new { Class = "glyphicon glyphicon-user" })</li>
+                        <li>@Html.ActionLink(".Login", "Login", "Account", null, new { Class = "glyphicon glyphicon-log-in" })</li>
+                    }
+                    else
+                    {
+                        if ((long)Session["RoleId"] <= 2)
+                        {
+                            <li>@Html.ActionLink("Fotos", "Index", "Album", null, new { Class = "glyphicon glyphicon-picture" }) </li>
+                            if ((long)Session["RoleId"] == 1)
+                            {
+                                <li>@Html.ActionLink("AddFoto", "UploadPhoto", "Photos", null, new { Class = "glyphicon glyphicon-plus" })</li>
+                            }
+                            <li>@Html.ActionLink(Session["Username"].ToString(), "Index", "Account", null, new { Class = "glyphicon glyphicon-user" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("MyAlbums", "Index", "Album", null, new { Class = "glyphicon glyphicon-picture" }) </li>
+                            //Make a way to allow user to edit themselves
+                            <li>@Html.ActionLink(Session["Username"].ToString(), "", "", null, new { Class = "glyphicon glyphicon-user" })</li>
+
+                        }
+                        <li>@Html.ActionLink(".Logout", "Logout", "Account", null, new { Class = "glyphicon glyphicon-log-out" })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Content/css")
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="footer navbar-fixed-bottom">
+            <p style="font-family:'AR BERKLEY'">&copy; @DateTime.Now.Year - AshBee Fotografia</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

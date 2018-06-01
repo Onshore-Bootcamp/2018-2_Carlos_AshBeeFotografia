@@ -1,0 +1,6 @@
+C:\Users\Carlos\source\repos\AshBeeFotografia\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\source\repos\AshBeeFotografia\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\Carlos\source\repos\AshBeeFotografia\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Users\Carlos\source\repos\AshBeeFotografia\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Users\Carlos\source\repos\AshBeeFotografia\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Users\Carlos\source\repos\AshBeeFotografia\BusinessLayer\obj\Debug\BusinessLayer.pdb

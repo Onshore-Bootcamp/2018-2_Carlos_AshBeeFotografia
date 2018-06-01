@@ -1,0 +1,74 @@
+﻿@using AshBeeFotografia.Models
+@model AshBeeFotografia.Models.PhotosPO
+@{
+    ViewBag.Title = "UploadPhoto";
+}
+<head>
+    <style>
+        h2 {
+            color: rgba(0, 0, 0, 0.55);
+        }
+
+        .form-control {
+            background-color: rgba(0, 0, 0, 0.40);
+            height: auto;
+            color: ghostwhite;
+            font-family: 'Tahoma';
+        }
+
+        .form-group {
+            color: ghostwhite;
+            font-family: 'Tahoma';
+        }
+
+
+        .label {
+            font-size: medium;
+            color: ghostwhite;
+        }
+
+        body {
+            padding-top: 5vw;
+            background-image: url("/../Images/banner6.jpg");
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-position: center top;
+        }
+    </style>
+
+</head>
+
+<h2 class="page-header" align="center"> Upload Foto</h2>
+
+
+<body>
+    @using (Html.BeginForm("UploadPhoto", "Photos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="form-group form-control" align="center">
+
+            @*Checks to make sure there is a list in the Viewbag, if true then
+                generate a dropdown menu of Albums with a value of their Id*@
+            @if (ViewBag.DropDown != null)
+            {
+                @Html.DropDownListFor(Model => Model.AlbumId, (List<SelectListItem>)ViewBag.DropDown, "Please select album.", new { Class = "form-control " })
+                <br />
+            }
+            @*Gets user input and displays model validation*@
+            @Html.TextBoxFor(Model => Model.PhotoName, new { @class = "form-control", placeholder = "Name" })
+            @Html.ValidationMessageFor(Model => Model.PhotoName, " ", new { @class = "text-danger" })
+            <br />
+            @Html.TextBoxFor(Model => Model.PhotoDate, new { @class = "form-control", placeholder = "Date" })
+            @Html.ValidationMessageFor(Model => Model.PhotoDate, " ", new { @class = "text-danger" })
+            <br />
+            @Html.TextBoxFor(Model => Model.Description, new { @class = "form-control", placeholder = "Description" })
+            @Html.ValidationMessageFor(Model => Model.Description, " ", new { @class = "text-danger" })
+            <br />
+            @*Generates an upload file button and a submit button*@
+            <input type="file" name="uploadedPhoto" />
+            <input type="submit" value="Upload" />
+        </div>
+
+
+    }
+</body>

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<AshBeeFotografia.Models.UserPO>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    tr > th {
+        color: ghostwhite;
+        font-size: x-large;
+        background-color: rgba(0, 0, 0, 0.60)
+    }
+
+    .label {
+        color: rgba(255, 255, 255, 0.59);
+        font-size: large;
+    }
+
+    body {
+        background-image: url("/../Images/banner10.jpg");
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center top;
+    }
+
+    users {
+        font-size: large;
+    }
+
+    table {
+        background-color: rgba(0, 0, 0, 0.55);
+        border: medium;
+        font-size: medium;
+        font-family: Tahoma;
+        color: ghostwhite;
+    }
+
+    a {
+        color: ghostwhite;
+        font-family: 'AR BERKLEY';
+    }
+
+    #user {
+        color:orangered;
+    }
+</style>
+<br /><br />
+<div class="container" align="center">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Phone</th>
+                <th>Email Address</th>
+                <th> </th>
+                <th> @Html.ActionLink("Add", "Register", "Account", null, new { Class = "glyphicon glyphicon-plus-sign" })</th>
+            </tr>
+        </thead>
+        <tbody class="Users">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr class="table-hover">
+                        @switch (item.RoleId)
+                        {
+                            case 1:
+                                <td>Admin</td>
+                                break;
+                            case 2:
+                                <td>Mod</td>
+                                break;
+                            case 3:
+                                <td>User</td>
+                                break;
+                            default:
+                                <td>Guest</td>
+                                break;
+                        }
+
+                        <td>@item.FirstName </td>
+                        <td>@item.LastName </td>
+                        <td>@item.Username </td>
+                        <td>@item.Phone </td>
+                        <td>@item.Email </td>
+
+                        @if (Session["RoleId"] != null && (long)Session["RoleId"] <= 2)
+                        {
+                            if (item.RoleId != 1)
+                            {
+                                <td>@Html.ActionLink("Delete", "Delete", "Account", new { userId = item.UserId }, new { Class = "glyphicon glyphicon-trash", onclick = "return confirm('Are you sure you want to delete?')" })</td>
+                                <td>@Html.ActionLink("Edit", "Modify", "Account", new { userId = item.UserId }, new { Class = "glyphicon glyphicon-pencil" })</td>
+                            }
+                            else
+                            {
+                                <td> </td>
+                                <td> </td>
+                            }
+
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                TempData["Error"] = "Oops something went wrong.";
+            }
+
+        </tbody>
+    </table>
+</div>

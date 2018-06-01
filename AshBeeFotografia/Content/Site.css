@@ -1,0 +1,53 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.div.footer {
+    font-family: 'AR BERKLEY';
+    font-size: 22px;
+    text-align: center;
+    height: 100px;
+    background-color: #101010;
+    color: #ffffff;
+    position: relative;
+    margin: auto;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: 100vw;
+}
+
+div.film-strip {
+    background-image: url("../Images/film-strip.jpg");
+    background-size: contain;
+    line-height: 20px;
+    height: 65px;    
+    background-color: rgba(0, 0, 0, 0.80);
+    color: ghostwhite;
+
+    width: 100vw;
+}
+div.header-links {
+    font-size:large;
+    text-align:right;
+}
